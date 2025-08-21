@@ -177,12 +177,12 @@ class UIRenderer(QWidget):
         self.fade_out.start()
 
     def _wrap_html(self, text: str) -> str:
-        # Simple wrapper to keep consistent styling & center horiz.
-        return f"""
-        <div style='text-align:center; font-size:{self.ui_cfg.get('font_point_size',16)}pt;'>
-            {self._escape_html(text).replace('\n','<br/>')}
-        </div>
-        """
+        safe_text = self._escape_html(text).replace("\n", "<br/>")
+        return (
+        f"<div style='text-align:center; font-size:{self.ui_cfg.get('font_point_size',16)}pt;'>"
+        f"{safe_text}"
+        "</div>"
+    )
 
     @staticmethod
     def _escape_html(s: str) -> str:
